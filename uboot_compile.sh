@@ -1,6 +1,6 @@
 #/bin/bash
 
-MAKE_CONFIG="make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- wyl1d_uboot_defconfig -j16"
+MAKE_CONFIG="make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- penguin_uboot_defconfig -j16"
 MAKE_UBOOT="make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j16"
 CLEAN_UBOOT="make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- distclean -j16"
 

@@ -9,8 +9,8 @@
 #include <dt-bindings/gpio/gpio.h>
 
 / {
-	model = "WYL1D";
-	compatible = "weiye,wyl1d", "allwinner,suniv-f1c100s",
+	model = "penguin";
+	compatible = "weiye,penguin", "allwinner,suniv-f1c100s",
 		     "allwinner,suniv";
 
 	aliases {
