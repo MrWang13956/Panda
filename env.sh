@@ -14,7 +14,7 @@ export LOCAL_BUILDROOT="$SCRIPT_DIR/../buildroot"
 
 export TARGET=$OUTPUT_PATH/target
 export UBOOT_FILE=u-boot-sunxi-with-spl.bin
-export DTB_FILE=suniv-f1c100s-penguin.dtb
+export DTB_FILE=suniv-f1c100s-panda.dtb
 export KERNEL_FILE=zImage
 export ROOTFS_FILE=rootfs-tf.tar.gz
 export BOOTSCR_FILE=boot.scr
