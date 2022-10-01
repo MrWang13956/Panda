@@ -1,0 +1,176 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR X11)
+/*
+ * Copyright 2022 Weiye Wang <wwytxjy@163.com>
+ */
+
+/dts-v1/;
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/gpio/gpio.h>
+#include "suniv-f1c100s.dtsi"
+
+/ {
+	model = "panda";
+	compatible = "weiye,panda", "allwinner,suniv-f1c100s";
+
+	aliases {
+		serial0 = &uart0;
+		serial1 = &uart1;
+	};
+
+	chosen {
+		stdout-path = "serial1:115200n8";
+	};
+
+	reg_vcc3v3: vcc3v3 {
+		compatible = "regulator-fixed";
+		regulator-name = "vcc3v3";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+	};
+
+	gpio_leds: gpio_leds {
+		compatible = "gpio-leds";
+
+		led0 {
+			label = "led0";
+			gpios = <&xio 4 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "backlignt";
+			default-state = "off";
+		};
+
+		led1 {
+			label = "led1";
+			gpios = <&xio 5 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "backlignt";
+			default-state = "off";
+		};
+	};
+
+	panel: panel {
+		compatible = "alientek,lcd-rgb", "simple-panel";
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			panel_input: endpoint@0 {
+				reg = <0>;
+				remote-endpoint = <&tcon0_out_lcd>;
+			};
+		};
+	};
+
+	esp8089: esp8089 {
+		rst-gpios = <&xio 0 GPIO_ACTIVE_LOW>;
+		int = <&pio 4 0 GPIO_ACTIVE_HIGH>;
+	};
+};
+
+&uart0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart0_pe_pins>;
+	status = "disabled";
+};
+
+&uart1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart1_pe_pins>;
+	status = "okay";
+};
+
+&mmc0 {
+	vmmc-supply = <&reg_vcc3v3>;
+	bus-width = <4>;
+	broken-cd;
+	status = "okay";
+};
+
+&csi0 {
+	status = "disabled";
+    pinctrl-names = "default";
+    pinctrl-0 = <&csi0_clk &csi0_8bit>;
+
+	port@0 {
+		csi0_ep: endpoint@0 {
+			remote-endpoint = <&ov2640_0>;
+			hsync-active = <0>;
+			vsync-active = <0>;
+			bus-width = <8>;
+			pclk-sample = <1>;
+		};
+	};
+ };
+
+&i2c0 {
+	status = "okay";
+
+	xio: gpio@20 {
+		compatible = "nxp,pcf8574";
+		reg = <0x20>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+
+		interrupt-parent = <&pio>;
+		interrupts = <6 0 IRQ_TYPE_EDGE_FALLING>;
+		interrupt-controller;
+		#interrupt-cells = <2>;
+		status = "disabled";
+	};
+
+	ov2640: camera@30 {
+		compatible = "ovti,ov2640";
+		reg = <0x30>;
+		clocks = <&csi_mclk>;
+		clock-names = "xvclk";
+		assigned-clocks = <&csi_mclk>;
+		assigned-clock-rates = <24000000>;
+		resetb = <&xio 1 GPIO_ACTIVE_LOW>;
+		pwdn = <&xio 2 GPIO_ACTIVE_HIGH>;
+		status = "disabled";
+
+		port@0 {
+			ov2640_0: endpoint@0 {
+				remote-endpoint = <&csi0_ep>;
+				bus-width = <8>;
+			};
+		};
+	};
+};
+
+&tcon0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&lcd_rgb666_pins>;
+	status = "okay";
+};
+
+&tcon0_out {
+	tcon0_out_lcd: endpoint@0 {
+		reg = <0>;
+		remote-endpoint = <&panel_input>;
+	};
+};
+
+&de {
+	status = "okay";
+};
+
+&spi0 {
+	status = "okay";
+};
+
+&otg_sram {
+	status = "okay";
+};
+
+&usb_otg {
+	dr_mode = "otg"; /* otg / host / peripheral */
+	status = "okay";
+};
+
+&usbphy {
+	status = "okay";
+};
