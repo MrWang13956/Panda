@@ -1,0 +1,5 @@
+#! /bin/sh
+
+sleep 1
+mkswap /root/swapfile
+swapon /root/swapfile

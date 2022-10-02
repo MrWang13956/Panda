@@ -1,0 +1,7 @@
+#!/bin/sh
+
+sleep 1
+modprobe g_ffs idVendor=0x18d1 idProduct=0x4e42 iSerialNumber="Penguin"
+mkdir -p /dev/usb-ffs/adb
+mount -t functionfs adb /dev/usb-ffs/adb -o uid=2000,gid=2000
+adbd &
