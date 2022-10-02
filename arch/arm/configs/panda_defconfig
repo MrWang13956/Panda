@@ -919,6 +919,7 @@ CONFIG_BLK_DEV=y
 # CONFIG_XILINX_SDFEC is not set
 # CONFIG_PVPANIC is not set
 # CONFIG_C2PORT is not set
+CONFIG_GPIO_BUZZER=y
 
 #
 # EEPROM support

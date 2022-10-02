@@ -33,23 +33,31 @@
 
 		led0 {
 			label = "led0";
-			gpios = <&xio 4 GPIO_ACTIVE_LOW>;
-			linux,default-trigger = "backlignt";
+			gpios = <&pio 3 1 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "heartbeat";
 			default-state = "off";
 		};
 
 		led1 {
 			label = "led1";
-			gpios = <&xio 5 GPIO_ACTIVE_LOW>;
+			gpios = <&pio 3 2 GPIO_ACTIVE_LOW>;
 			linux,default-trigger = "backlignt";
 			default-state = "off";
 		};
+	};
+
+	gpio_buzzer: gpio_buzzer {
+		compatible = "gpio-buzzer";
+		gpios = <&pio 3 9 GPIO_ACTIVE_LOW>;
+		default-state = "off";
+		status = "okay";
 	};
 
 	panel: panel {
 		compatible = "alientek,lcd-rgb", "simple-panel";
 		#address-cells = <1>;
 		#size-cells = <0>;
+		status = "disabled";
 
 		port@0 {
 			reg = <0>;
@@ -144,7 +152,7 @@
 &tcon0 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&lcd_rgb666_pins>;
-	status = "okay";
+	status = "disabled";
 };
 
 &tcon0_out {
