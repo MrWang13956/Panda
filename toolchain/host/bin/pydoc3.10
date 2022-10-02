@@ -1,0 +1,5 @@
+#!/home/weiyew/Workplace/project/Panda/buildroot/buildroot-2022.02/output/host/bin/python3.10
+
+import pydoc
+if __name__ == '__main__':
+    pydoc.cli()

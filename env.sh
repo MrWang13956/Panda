@@ -4,6 +4,7 @@
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 export PATH=$PATH:$SCRIPT_DIR/toolchain/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabi/bin
+export PATH=$PATH:$SCRIPT_DIR/toolchain/host/bin
 export PANDA_CROSS_COMPILE="arm-linux-gnueabi-"
 export OUTPUT_PATH="$SCRIPT_DIR/../output"
 export LOCAL_UBOOT="$SCRIPT_DIR/../uboot"
