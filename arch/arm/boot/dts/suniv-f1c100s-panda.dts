@@ -72,8 +72,8 @@
 	};
 
 	esp8089: esp8089 {
-		rst-gpios = <&xio 0 GPIO_ACTIVE_LOW>;
-		int = <&pio 4 0 GPIO_ACTIVE_HIGH>;
+		rst-gpios = <&pio 0 0 GPIO_ACTIVE_LOW>;
+		int = <&pio 3 3 GPIO_ACTIVE_HIGH>;
 	};
 };
 
