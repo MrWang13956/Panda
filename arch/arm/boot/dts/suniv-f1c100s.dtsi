@@ -157,6 +157,7 @@
 			reset-names = "be";
 			assigned-clocks = <&ccu CLK_DE_BE>;
 			assigned-clock-rates = <300000000>;
+			status = "disabled";
 
 			ports {
 				#address-cells = <1>;
@@ -263,8 +264,18 @@
 			};
 
 			i2c0_pins: i2c0-pins {
-				pins = "PE11", "PE12";
+				pins = "PD0", "PD12";
 				function = "i2c0";
+			};
+
+			i2c1_pins: i2c1-pins {
+				pins = "PD5", "PD6";
+				function = "i2c1";
+			};
+
+			i2c2_pins: i2c2-pins {
+				pins = "PD15", "PD16";
+				function = "i2c2";
 			};
 
 			spi0_pins_a: spi0-pins-pc {
@@ -366,7 +377,7 @@
 			status = "disabled";
 		};
 
-		i2c0: i2c@1c2ac00 {
+		i2c0: i2c@1c27000 {
 			compatible = "allwinner,sun6i-a31-i2c";
 			reg = <0x01c27000 0x400>;
 			interrupts = <7>;
@@ -374,6 +385,32 @@
 			resets = <&ccu RST_BUS_I2C0>;
 			pinctrl-names = "default";
 			pinctrl-0 = <&i2c0_pins>;
+			status = "disabled";
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		i2c1: i2c@1c27400 {
+			compatible = "allwinner,sun6i-a31-i2c";
+			reg = <0x01c27400 0x400>;
+			interrupts = <8>;
+			clocks = <&ccu CLK_BUS_I2C1>;
+			resets = <&ccu RST_BUS_I2C1>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&i2c1_pins>;
+			status = "disabled";
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		i2c2: i2c@1c27800 {
+			compatible = "allwinner,sun6i-a31-i2c";
+			reg = <0x01c27800 0x400>;
+			interrupts = <9>;
+			clocks = <&ccu CLK_BUS_I2C2>;
+			resets = <&ccu RST_BUS_I2C2>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&i2c2_pins>;
 			status = "disabled";
 			#address-cells = <1>;
 			#size-cells = <0>;
